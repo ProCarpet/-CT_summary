@@ -342,6 +342,130 @@ DAC introduces an error between -0.5 LSB and +0.5 LSB
 
 <img src="pictures/adc_offset_error.png" alt="drawing" width="400"/>
 
+# Memory
+
+* **Unit Symbols**
+  * b = bit    B = Byte
+* **Memory Chips**
+  * Kilo K  = 1024
+  * Mega M  = 1024 x 1024
+  * Giga G  = 1024 x 1024 x 1024
+* **Hard Disks**
+  * Kilo k  = 1000
+  * Mega M  = 1000 x 1000
+  * Giga G  = 1000 x 1000 x 1000
+
+## n x m array memory architecture 
+
+<img src="pictures/n_x_m_architecture.png" alt="drawing" width="900"/>
+
+
+## PROM Programmable Read Only Memory
+* n x m array
+* Fusible Transistors\
+  Programming applies higher voltage to destroy transistors. **NOT** reversible. 
+* Cell '1' = ON
+* Transistor destroyed -> Cell '0' = Off
+
+## EEPROM 
+* Uses "Floating Gates" insted of "fusible Transistors"
+* `Write` cell to '0' -> ON
+  * High voltage Up deposits charge on floating gate (isolated by SiO2)
+  * Transistor ON (conduction) if controll gate equal '1'
+* `Earase` cell to '1' -> OFF 
+  * Discharge floating gate with neagtive UP
+  * Transisotr is OFF, i.e.Blcoking independent of value on controll gate. 
+* High cell area -> low density, high cost per bit. 
+* Write and Erase can happen at ByteLevel
+* More rewrites compared to FLASH
+
+<img src="pictures/eeprom.png" alt="drawing" width="600"/>
+
+
+## Flash 
+### Write Operation
+* Can only change bits from '1' to '0'
+  * Otherwise an erase operation is required
+* Word, half-word or byte access possible. 
+* Writing a double word ~16us
+  * I.e. around 1000 times slower than SRAM 
+
+### Erase Operation
+* Change all bits from '0' to '1'
+  * **Only possible by sector or by bank** not on a word.
+  * Typical sector size of 16
+* Erase of 128 Kbytes sector takes between '1' and '2' seconds
+* Endurance: 10'000 erase cycles
+* Sector may not be accessed (write or read) during erase
+
+<img src="pictures/flash.png" alt="drawing" width="400"/>
+
+### NOR vs NAND
+
+<img src="pictures/nor_nand_flash.png" alt="drawing" width="900"/>
+
+## SRAM Static random access Memory
+
+
+<img src="pictures/sram.png" alt="drawing" width="900"/>
+
+* The cell keeps the value stored that we "write" to it trough b1 and !b1.
+* the inverter just keeps the original value like it is. 
+* We just check the `b` line for it's value and the `!b` is just the inverted of `b`. So to write a '1' we save (1,0) and to save a '0' we save (0,1)
+* To write the wordline is actiavte the transistors become conductive and we can put a value on the b and b1 line like above then the wordline gets deactivated. 
+* to read we simply activate the wordline again and put no current on the bit lines so the sense amplifier can read the values from the bit lines. 
+
+**Advantages are:**
+* All accesses take roughly the same time
+* Access time independedn of location of data item in memory
+* Access time independed of previous access
+
+**Dissadvantages:**
+* Memory content retained only as long as device is powered
+
+
+## SDRAM Synchronous Dynamic RAM 
+
+$$\text{Spannung zu zeit t} = \boxed{U_c*e^{-\frac{t}{\tau}}}$$
+
+
+
+Für das ansprechen einer zelle auf dem adress buss wird zuerst die row adresse zusammen mit einem low RAS signal gesendet um zu kennzeichnen das es sich um eine row adresse handelt. danach wir der RAS hoch geschalten und die einzelnen col adressen durchgegeben. 
+
+<img src="pictures/sdram_timing_diagram.png" alt="drawing" width="900"/>
+
+
+## SDRAM SRAM comparison 
+
+<img src="pictures/sram_sdram_comparison.png" alt="drawing" width="900"/>
+
+
+## FMC Flexible Memory Controller
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
